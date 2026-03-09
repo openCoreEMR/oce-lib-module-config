@@ -32,7 +32,8 @@ class FileConfigAccessorTest extends TestCase
     {
         $accessor = new FileConfigAccessor(
             ['project_id' => 'yaml-project-123'],
-            $this->descriptor
+            $this->descriptor,
+            TestDescriptor::emptyGlobalsBag(),
         );
 
         $this->assertSame(
@@ -45,7 +46,8 @@ class FileConfigAccessorTest extends TestCase
     {
         $accessor = new FileConfigAccessor(
             ['enabled' => true],
-            $this->descriptor
+            $this->descriptor,
+            TestDescriptor::emptyGlobalsBag(),
         );
 
         $this->assertTrue($accessor->getBoolean('oce_test_module_enabled'));
@@ -55,7 +57,8 @@ class FileConfigAccessorTest extends TestCase
     {
         $accessor = new FileConfigAccessor(
             ['retry_count' => 7],
-            $this->descriptor
+            $this->descriptor,
+            TestDescriptor::emptyGlobalsBag(),
         );
 
         $this->assertSame(7, $accessor->getInt('oce_test_module_retry_count'));
@@ -63,7 +66,7 @@ class FileConfigAccessorTest extends TestCase
 
     public function testReturnsDefaultWhenKeyNotInYaml(): void
     {
-        $accessor = new FileConfigAccessor([], $this->descriptor);
+        $accessor = new FileConfigAccessor([], $this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertSame(
             'fallback',
@@ -75,7 +78,8 @@ class FileConfigAccessorTest extends TestCase
     {
         $accessor = new FileConfigAccessor(
             ['project_id' => 'abc'],
-            $this->descriptor
+            $this->descriptor,
+            TestDescriptor::emptyGlobalsBag(),
         );
 
         $this->assertTrue($accessor->has('oce_test_module_project_id'));
@@ -83,7 +87,7 @@ class FileConfigAccessorTest extends TestCase
 
     public function testHasReturnsFalseForMissingKey(): void
     {
-        $accessor = new FileConfigAccessor([], $this->descriptor);
+        $accessor = new FileConfigAccessor([], $this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertFalse($accessor->has('oce_test_module_project_id'));
     }
@@ -94,7 +98,8 @@ class FileConfigAccessorTest extends TestCase
 
         $accessor = new FileConfigAccessor(
             ['project_id' => 'yaml-project-123'],
-            $this->descriptor
+            $this->descriptor,
+            TestDescriptor::emptyGlobalsBag(),
         );
 
         $this->assertSame(
@@ -109,7 +114,8 @@ class FileConfigAccessorTest extends TestCase
 
         $accessor = new FileConfigAccessor(
             ['enabled' => true],
-            $this->descriptor
+            $this->descriptor,
+            TestDescriptor::emptyGlobalsBag(),
         );
 
         $this->assertFalse($accessor->getBoolean('oce_test_module_enabled'));
@@ -119,7 +125,8 @@ class FileConfigAccessorTest extends TestCase
     {
         $accessor = new FileConfigAccessor(
             ['region' => 'eu1'],
-            $this->descriptor
+            $this->descriptor,
+            TestDescriptor::emptyGlobalsBag(),
         );
 
         $this->assertSame(
@@ -139,7 +146,7 @@ class FileConfigAccessorTest extends TestCase
             'retry_count' => 5,
         ];
 
-        $accessor = new FileConfigAccessor($yamlData, $this->descriptor);
+        $accessor = new FileConfigAccessor($yamlData, $this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertTrue($accessor->getBoolean('oce_test_module_enabled'));
         $this->assertSame('proj-123', $accessor->getString('oce_test_module_project_id'));
@@ -153,7 +160,8 @@ class FileConfigAccessorTest extends TestCase
     {
         $accessor = new FileConfigAccessor(
             ['project_id' => 'abc', 'unknown_key' => 'should-be-ignored'],
-            $this->descriptor
+            $this->descriptor,
+            TestDescriptor::emptyGlobalsBag(),
         );
 
         $this->assertSame('abc', $accessor->getString('oce_test_module_project_id'));
@@ -163,7 +171,8 @@ class FileConfigAccessorTest extends TestCase
     {
         $accessor = new FileConfigAccessor(
             ['project_id' => 'abc'],
-            $this->descriptor
+            $this->descriptor,
+            TestDescriptor::emptyGlobalsBag(),
         );
 
         // OE_SITE_DIR delegates to GlobalsAccessor; in test context returns default

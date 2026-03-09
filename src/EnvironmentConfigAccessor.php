@@ -34,10 +34,10 @@ class EnvironmentConfigAccessor implements ConfigAccessorInterface
      */
     private readonly array $envOverrideMap;
 
-    public function __construct(ModuleConfigDescriptor $descriptor)
+    public function __construct(ModuleConfigDescriptor $descriptor, ParameterBag $globalsBag)
     {
         $this->envOverrideMap = $descriptor->envOverrideMap;
-        $this->globalsAccessor = new GlobalsAccessor();
+        $this->globalsAccessor = new GlobalsAccessor($globalsBag);
         $this->envBag = $this->buildEnvBag();
     }
 
@@ -54,15 +54,6 @@ class EnvironmentConfigAccessor implements ConfigAccessorInterface
             }
         }
         return new ParameterBag($params);
-    }
-
-    public function get(string $key, mixed $default = null): mixed
-    {
-        if (isset($this->envOverrideMap[$key])) {
-            return $this->envBag->get($key, $default);
-        }
-
-        return $this->globalsAccessor->get($key, $default);
     }
 
     public function getString(string $key, string $default = ''): string

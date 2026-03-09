@@ -19,11 +19,6 @@ namespace OpenCoreEMR\ModuleConfig;
 interface ConfigAccessorInterface
 {
     /**
-     * Get a configuration value
-     */
-    public function get(string $key, mixed $default = null): mixed;
-
-    /**
      * Get a string configuration value
      */
     public function getString(string $key, string $default = ''): string;

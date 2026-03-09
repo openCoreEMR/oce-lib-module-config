@@ -31,7 +31,7 @@ class EnvironmentConfigAccessorTest extends TestCase
     public function testGetStringFromEnvVar(): void
     {
         putenv('OCE_TEST_MODULE_PROJECT_ID=env-proj');
-        $accessor = new EnvironmentConfigAccessor($this->descriptor);
+        $accessor = new EnvironmentConfigAccessor($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertSame('env-proj', $accessor->getString('oce_test_module_project_id'));
     }
@@ -39,7 +39,7 @@ class EnvironmentConfigAccessorTest extends TestCase
     public function testGetBooleanFromEnvVar(): void
     {
         putenv('OCE_TEST_MODULE_ENABLED=1');
-        $accessor = new EnvironmentConfigAccessor($this->descriptor);
+        $accessor = new EnvironmentConfigAccessor($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertTrue($accessor->getBoolean('oce_test_module_enabled'));
     }
@@ -47,7 +47,7 @@ class EnvironmentConfigAccessorTest extends TestCase
     public function testGetBooleanFalseFromEnvVar(): void
     {
         putenv('OCE_TEST_MODULE_ENABLED=0');
-        $accessor = new EnvironmentConfigAccessor($this->descriptor);
+        $accessor = new EnvironmentConfigAccessor($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertFalse($accessor->getBoolean('oce_test_module_enabled'));
     }
@@ -55,7 +55,7 @@ class EnvironmentConfigAccessorTest extends TestCase
     public function testGetBooleanTrueString(): void
     {
         putenv('OCE_TEST_MODULE_ENABLED=true');
-        $accessor = new EnvironmentConfigAccessor($this->descriptor);
+        $accessor = new EnvironmentConfigAccessor($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertTrue($accessor->getBoolean('oce_test_module_enabled'));
     }
@@ -63,14 +63,14 @@ class EnvironmentConfigAccessorTest extends TestCase
     public function testGetIntFromEnvVar(): void
     {
         putenv('OCE_TEST_MODULE_RETRY_COUNT=3');
-        $accessor = new EnvironmentConfigAccessor($this->descriptor);
+        $accessor = new EnvironmentConfigAccessor($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertSame(3, $accessor->getInt('oce_test_module_retry_count'));
     }
 
     public function testReturnsDefaultWhenEnvVarNotSet(): void
     {
-        $accessor = new EnvironmentConfigAccessor($this->descriptor);
+        $accessor = new EnvironmentConfigAccessor($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertSame('fallback', $accessor->getString('oce_test_module_project_id', 'fallback'));
     }
@@ -78,21 +78,21 @@ class EnvironmentConfigAccessorTest extends TestCase
     public function testHasReturnsTrueWhenEnvVarSet(): void
     {
         putenv('OCE_TEST_MODULE_PROJECT_ID=abc');
-        $accessor = new EnvironmentConfigAccessor($this->descriptor);
+        $accessor = new EnvironmentConfigAccessor($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertTrue($accessor->has('oce_test_module_project_id'));
     }
 
     public function testHasReturnsFalseWhenEnvVarNotSet(): void
     {
-        $accessor = new EnvironmentConfigAccessor($this->descriptor);
+        $accessor = new EnvironmentConfigAccessor($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertFalse($accessor->has('oce_test_module_project_id'));
     }
 
     public function testDelegatesToGlobalsForNonModuleKeys(): void
     {
-        $accessor = new EnvironmentConfigAccessor($this->descriptor);
+        $accessor = new EnvironmentConfigAccessor($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         // Non-module keys delegate to GlobalsAccessor; in test context returns default
         $this->assertSame('', $accessor->getString('OE_SITE_DIR', ''));
@@ -107,7 +107,7 @@ class EnvironmentConfigAccessorTest extends TestCase
         putenv('OCE_TEST_MODULE_REGION=us');
         putenv('OCE_TEST_MODULE_RETRY_COUNT=5');
 
-        $accessor = new EnvironmentConfigAccessor($this->descriptor);
+        $accessor = new EnvironmentConfigAccessor($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertTrue($accessor->getBoolean('oce_test_module_enabled'));
         $this->assertSame('proj', $accessor->getString('oce_test_module_project_id'));

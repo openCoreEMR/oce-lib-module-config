@@ -62,7 +62,7 @@ class ConfigFactoryTest extends TestCase
 
     public function testIsEnvConfigModeReturnsFalseByDefault(): void
     {
-        $factory = new ConfigFactory($this->descriptor);
+        $factory = new ConfigFactory($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertFalse($factory->isEnvConfigMode());
     }
@@ -70,7 +70,7 @@ class ConfigFactoryTest extends TestCase
     public function testIsEnvConfigModeReturnsTrueWhenSet(): void
     {
         putenv('OCE_TEST_MODULE_ENV_CONFIG=1');
-        $factory = new ConfigFactory($this->descriptor);
+        $factory = new ConfigFactory($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertTrue($factory->isEnvConfigMode());
     }
@@ -78,7 +78,7 @@ class ConfigFactoryTest extends TestCase
     public function testIsEnvConfigModeReturnsTrueForTrueString(): void
     {
         putenv('OCE_TEST_MODULE_ENV_CONFIG=true');
-        $factory = new ConfigFactory($this->descriptor);
+        $factory = new ConfigFactory($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertTrue($factory->isEnvConfigMode());
     }
@@ -86,7 +86,7 @@ class ConfigFactoryTest extends TestCase
     public function testIsEnvConfigModeReturnsFalseForZero(): void
     {
         putenv('OCE_TEST_MODULE_ENV_CONFIG=0');
-        $factory = new ConfigFactory($this->descriptor);
+        $factory = new ConfigFactory($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertFalse($factory->isEnvConfigMode());
     }
@@ -94,7 +94,7 @@ class ConfigFactoryTest extends TestCase
     public function testIsEnvConfigModeReturnsFalseForFalseString(): void
     {
         putenv('OCE_TEST_MODULE_ENV_CONFIG=false');
-        $factory = new ConfigFactory($this->descriptor);
+        $factory = new ConfigFactory($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertFalse($factory->isEnvConfigMode());
     }
@@ -103,7 +103,7 @@ class ConfigFactoryTest extends TestCase
 
     public function testIsFileConfigModeReturnsFalseWhenNoFiles(): void
     {
-        $factory = new ConfigFactory($this->descriptor);
+        $factory = new ConfigFactory($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertFalse($factory->isFileConfigMode());
     }
@@ -114,7 +114,7 @@ class ConfigFactoryTest extends TestCase
         file_put_contents($configPath, "enabled: true\n");
         putenv('OCE_TEST_MODULE_CONFIG_FILE=' . $configPath);
 
-        $factory = new ConfigFactory($this->descriptor);
+        $factory = new ConfigFactory($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertTrue($factory->isFileConfigMode());
     }
@@ -125,7 +125,7 @@ class ConfigFactoryTest extends TestCase
         file_put_contents($secretsPath, "api_secret: x\n");
         putenv('OCE_TEST_MODULE_SECRETS_FILE=' . $secretsPath);
 
-        $factory = new ConfigFactory($this->descriptor);
+        $factory = new ConfigFactory($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertTrue($factory->isFileConfigMode());
     }
@@ -134,7 +134,7 @@ class ConfigFactoryTest extends TestCase
 
     public function testIsExternalConfigModeReturnsFalseByDefault(): void
     {
-        $factory = new ConfigFactory($this->descriptor);
+        $factory = new ConfigFactory($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertFalse($factory->isExternalConfigMode());
     }
@@ -142,7 +142,7 @@ class ConfigFactoryTest extends TestCase
     public function testIsExternalConfigModeReturnsTrueForEnvConfig(): void
     {
         putenv('OCE_TEST_MODULE_ENV_CONFIG=1');
-        $factory = new ConfigFactory($this->descriptor);
+        $factory = new ConfigFactory($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertTrue($factory->isExternalConfigMode());
     }
@@ -153,7 +153,7 @@ class ConfigFactoryTest extends TestCase
         file_put_contents($configPath, "enabled: true\n");
         putenv('OCE_TEST_MODULE_CONFIG_FILE=' . $configPath);
 
-        $factory = new ConfigFactory($this->descriptor);
+        $factory = new ConfigFactory($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertTrue($factory->isExternalConfigMode());
     }
@@ -162,7 +162,7 @@ class ConfigFactoryTest extends TestCase
 
     public function testCreatesGlobalsAccessorByDefault(): void
     {
-        $factory = new ConfigFactory($this->descriptor);
+        $factory = new ConfigFactory($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertInstanceOf(GlobalsAccessor::class, $factory->createConfigAccessor());
     }
@@ -170,7 +170,7 @@ class ConfigFactoryTest extends TestCase
     public function testCreatesEnvironmentConfigAccessorWhenEnvConfigSet(): void
     {
         putenv('OCE_TEST_MODULE_ENV_CONFIG=1');
-        $factory = new ConfigFactory($this->descriptor);
+        $factory = new ConfigFactory($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertInstanceOf(EnvironmentConfigAccessor::class, $factory->createConfigAccessor());
     }
@@ -181,7 +181,7 @@ class ConfigFactoryTest extends TestCase
         file_put_contents($configPath, "enabled: true\n");
         putenv('OCE_TEST_MODULE_CONFIG_FILE=' . $configPath);
 
-        $factory = new ConfigFactory($this->descriptor);
+        $factory = new ConfigFactory($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertInstanceOf(FileConfigAccessor::class, $factory->createConfigAccessor());
     }
@@ -193,7 +193,7 @@ class ConfigFactoryTest extends TestCase
         putenv('OCE_TEST_MODULE_CONFIG_FILE=' . $configPath);
         putenv('OCE_TEST_MODULE_ENV_CONFIG=1');
 
-        $factory = new ConfigFactory($this->descriptor);
+        $factory = new ConfigFactory($this->descriptor, TestDescriptor::emptyGlobalsBag());
 
         $this->assertInstanceOf(FileConfigAccessor::class, $factory->createConfigAccessor());
     }

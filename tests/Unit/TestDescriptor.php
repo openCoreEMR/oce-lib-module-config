@@ -13,6 +13,7 @@
 namespace OpenCoreEMR\ModuleConfig\Tests\Unit;
 
 use OpenCoreEMR\ModuleConfig\ModuleConfigDescriptor;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
  * Build a sinch-fax-style descriptor for use in tests
@@ -44,6 +45,14 @@ final class TestDescriptor
             configFileEnvVar: 'OCE_TEST_MODULE_CONFIG_FILE',
             secretsFileEnvVar: 'OCE_TEST_MODULE_SECRETS_FILE',
         );
+    }
+
+    /**
+     * Create an empty ParameterBag for use as a globals stub in tests
+     */
+    public static function emptyGlobalsBag(): ParameterBag
+    {
+        return new ParameterBag();
     }
 
     /**

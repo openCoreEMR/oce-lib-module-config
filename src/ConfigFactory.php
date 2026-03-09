@@ -12,6 +12,8 @@
 
 namespace OpenCoreEMR\ModuleConfig;
 
+use Symfony\Component\HttpFoundation\ParameterBag;
+
 /**
  * Factory for creating the appropriate configuration accessor.
  *
@@ -22,8 +24,16 @@ namespace OpenCoreEMR\ModuleConfig;
  */
 class ConfigFactory
 {
+    /**
+     * @param ModuleConfigDescriptor $descriptor Module-specific key maps and paths
+     * @param ParameterBag $globalsBag
+     *   OpenEMR globals bag (pass OEGlobalsBag::getInstance())
+     * @param ?SecretProviderInterface $secretProvider
+     *   Optional secret provider for _secrets YAML block resolution
+     */
     public function __construct(
         private readonly ModuleConfigDescriptor $descriptor,
+        private readonly ParameterBag $globalsBag,
         private readonly ?SecretProviderInterface $secretProvider = null,
     ) {
     }
@@ -65,14 +75,14 @@ class ConfigFactory
             $loader = new YamlConfigLoader($this->secretProvider);
             $paths = $loader->resolveFilePaths($this->getConfigFileCandidates());
             $data = $loader->load($paths);
-            return new FileConfigAccessor($data, $this->descriptor);
+            return new FileConfigAccessor($data, $this->descriptor, $this->globalsBag);
         }
 
         if ($this->isEnvConfigMode()) {
-            return new EnvironmentConfigAccessor($this->descriptor);
+            return new EnvironmentConfigAccessor($this->descriptor, $this->globalsBag);
         }
 
-        return new GlobalsAccessor();
+        return new GlobalsAccessor($this->globalsBag);
     }
 
     /**

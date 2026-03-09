@@ -29,12 +29,16 @@ class FileConfigAccessor implements ConfigAccessorInterface
     private readonly GlobalsAccessor $globalsAccessor;
 
     /**
-     * @param array<string, mixed> $yamlData   Merged data from YamlConfigLoader::load() (secrets already resolved)
+     * @param array<string, mixed> $yamlData Merged data from YamlConfigLoader::load()
      * @param ModuleConfigDescriptor $descriptor Module-specific key maps and env var names
+     * @param ParameterBag $globalsBag OpenEMR globals bag (e.g. OEGlobalsBag)
      */
-    public function __construct(array $yamlData, private readonly ModuleConfigDescriptor $descriptor)
-    {
-        $this->globalsAccessor = new GlobalsAccessor();
+    public function __construct(
+        array $yamlData,
+        private readonly ModuleConfigDescriptor $descriptor,
+        ParameterBag $globalsBag,
+    ) {
+        $this->globalsAccessor = new GlobalsAccessor($globalsBag);
         $this->bag = $this->buildBag($yamlData);
     }
 
@@ -67,15 +71,6 @@ class FileConfigAccessor implements ConfigAccessorInterface
         }
 
         return new ParameterBag($params);
-    }
-
-    public function get(string $key, mixed $default = null): mixed
-    {
-        if (isset($this->descriptor->reverseKeyMap[$key])) {
-            return $this->bag->get($key, $default);
-        }
-
-        return $this->globalsAccessor->get($key, $default);
     }
 
     public function getString(string $key, string $default = ''): string
