@@ -1,0 +1,75 @@
+{
+    "name": "opencoreemr/module-config",
+    "description": "Shared configuration accessor library for OpenCoreEMR modules",
+    "license": "GPL-3.0-or-later",
+    "type": "library",
+    "keywords": [
+        "openemr",
+        "module",
+        "configuration",
+        "opencoreemr"
+    ],
+    "authors": [
+        {
+            "name": "Michael A. Smith",
+            "email": "michael@opencoreemr.com",
+            "homepage": "https://opencoreemr.com",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "https://opencoreemr.com",
+    "support": {
+        "email": "support@opencoreemr.com",
+        "issues": "https://github.com/opencoreemr/module-config/issues",
+        "source": "https://github.com/opencoreemr/module-config"
+    },
+    "require": {
+        "php": ">=8.2",
+        "ext-filter": "*",
+        "symfony/http-foundation": "^6.4 || ^7.0",
+        "symfony/yaml": "^6.4 || ^7.0"
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.44",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^11.0",
+        "squizlabs/php_codesniffer": "^4.0"
+    },
+    "suggest": {
+        "google/cloud-secret-manager": "Required for gcp-secret-manager provider in _secrets block (^2.1)"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "OpenCoreEMR\\ModuleConfig\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OpenCoreEMR\\ModuleConfig\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        },
+        "sort-packages": true
+    },
+    "scripts": {
+        "check": [
+            "@php-lint",
+            "@phpcs",
+            "@phpstan"
+        ],
+        "fix": [
+            "@phpcbf"
+        ],
+        "php-lint": "find src tests -name '*.php' -print0 | xargs -0 -n1 php -l",
+        "phpcbf": "phpcbf",
+        "phpcs": "phpcs",
+        "phpstan": "phpstan --memory-limit=512M analyse",
+        "phpunit": "phpunit --testdox",
+        "test": "@phpunit"
+    }
+}
