@@ -1,5 +1,5 @@
 {
-    "name": "opencoreemr/module-config",
+    "name": "opencoreemr/oce-lib-module-config",
     "description": "Shared configuration accessor library for OpenCoreEMR modules",
     "license": "GPL-3.0-or-later",
     "type": "library",
@@ -20,8 +20,8 @@
     "homepage": "https://opencoreemr.com",
     "support": {
         "email": "support@opencoreemr.com",
-        "issues": "https://github.com/opencoreemr/module-config/issues",
-        "source": "https://github.com/opencoreemr/module-config"
+        "issues": "https://github.com/opencoreemr/oce-lib-module-config/issues",
+        "source": "https://github.com/opencoreemr/oce-lib-module-config"
     },
     "require": {
         "php": ">=8.2",
