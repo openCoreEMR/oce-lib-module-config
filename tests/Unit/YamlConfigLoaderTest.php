@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OpenCoreEMR\ModuleConfig\Tests\Unit;
 
 use OpenCoreEMR\ModuleConfig\Exception\ConfigurationException;
