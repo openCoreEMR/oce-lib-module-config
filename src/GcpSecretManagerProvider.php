@@ -46,7 +46,9 @@ class GcpSecretManagerProvider implements SecretProviderInterface
             // google/cloud-secret-manager is a suggest dependency; types unavailable at analysis time
             /** @phpstan-ignore method.notFound (google/cloud-secret-manager is a suggest dependency) */
             $response = $client->accessSecretVersion($secretVersionName);
+            /** @phpstan-ignore method.nonObject (google/cloud-secret-manager is a suggest dependency) */
             $payload = $response->getPayload();
+            /** @phpstan-ignore method.nonObject (google/cloud-secret-manager is a suggest dependency) */
             $data = $payload->getData();
             if (!is_string($data)) {
                 throw new SecretResolutionException(

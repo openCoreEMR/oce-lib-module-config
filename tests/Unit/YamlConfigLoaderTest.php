@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class YamlConfigLoaderTest extends TestCase
 {
-    private string $tmpDir;
+    private string $tmpDir; // @phpstan-ignore property.uninitialized (setUp)
 
     protected function setUp(): void
     {

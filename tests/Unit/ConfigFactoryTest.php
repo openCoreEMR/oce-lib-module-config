@@ -13,8 +13,8 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigFactoryTest extends TestCase
 {
-    private ModuleConfigDescriptor $descriptor;
-    private string $tmpDir;
+    private ModuleConfigDescriptor $descriptor; // @phpstan-ignore property.uninitialized (setUp)
+    private string $tmpDir; // @phpstan-ignore property.uninitialized (setUp)
 
     protected function setUp(): void
     {

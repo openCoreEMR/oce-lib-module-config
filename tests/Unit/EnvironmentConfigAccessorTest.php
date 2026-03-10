@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class EnvironmentConfigAccessorTest extends TestCase
 {
-    private ModuleConfigDescriptor $descriptor;
+    private ModuleConfigDescriptor $descriptor; // @phpstan-ignore property.uninitialized (setUp)
 
     protected function setUp(): void
     {

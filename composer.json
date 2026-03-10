@@ -33,6 +33,7 @@
         "ergebnis/composer-normalize": "^2.44",
         "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^11.0",
+        "rector/rector": "^2.0",
         "squizlabs/php_codesniffer": "^4.0"
     },
     "suggest": {
@@ -60,16 +61,22 @@
         "check": [
             "@php-lint",
             "@phpcs",
-            "@phpstan"
+            "@phpstan",
+            "@rector"
         ],
         "fix": [
-            "@phpcbf"
+            "@phpcbf",
+            "@rector-fix"
         ],
-        "php-lint": "find src tests -name '*.php' -print0 | xargs -0 -n1 php -l",
+        "php-lint": "git ls-files -z '*.php' | xargs -0 -n1 php -l",
         "phpcbf": "phpcbf",
         "phpcs": "phpcs",
         "phpstan": "phpstan --memory-limit=512M analyse",
         "phpunit": "phpunit --testdox",
+        "phpunit-coverage": "phpunit --coverage-html htmlcov --coverage-text",
+        "rector": "rector process --dry-run",
+        "rector-fix": "rector process",
+        "require-checker": "@php -r \"if(!shell_exec('which composer-require-checker')){echo \\\"composer-require-checker not found. Install globally: composer global require maglnet/composer-require-checker\\n\\\";exit(1);}\" && composer-require-checker check --config-file=.composer-require-checker.json",
         "test": "@phpunit"
     }
 }

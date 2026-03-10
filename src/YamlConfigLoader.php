@@ -33,11 +33,8 @@ class YamlConfigLoader
     private const SECRETS_KEY = '_secrets';
     private const PROVIDER_GCP = 'gcp-secret-manager';
 
-    private ?SecretProviderInterface $secretProvider;
-
-    public function __construct(?SecretProviderInterface $secretProvider = null)
+    public function __construct(private readonly ?SecretProviderInterface $secretProvider = null)
     {
-        $this->secretProvider = $secretProvider;
     }
 
     /**
@@ -156,7 +153,7 @@ class YamlConfigLoader
     private function getSecretProvider(string $provider): SecretProviderInterface
     {
         // Allow injected provider (for testing or custom providers)
-        if ($this->secretProvider !== null) {
+        if ($this->secretProvider instanceof \OpenCoreEMR\ModuleConfig\SecretProviderInterface) {
             return $this->secretProvider;
         }
 
