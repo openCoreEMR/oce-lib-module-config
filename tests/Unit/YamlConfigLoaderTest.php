@@ -188,6 +188,30 @@ class YamlConfigLoaderTest extends TestCase
         $loader->load([$path]);
     }
 
+    public function testLoadThrowsOnCircularImport(): void
+    {
+        $loader = new YamlConfigLoader();
+        $this->writeYaml('a.yaml', "imports:\n  - { resource: b.yaml }\nfrom_a: true\n");
+        $this->writeYaml('b.yaml', "imports:\n  - { resource: a.yaml }\nfrom_b: true\n");
+        $aPath = $this->tmpDir . '/a.yaml';
+
+        $this->expectException(ConfigurationException::class);
+        $this->expectExceptionMessage('Circular import detected');
+
+        $loader->load([$aPath]);
+    }
+
+    public function testLoadThrowsOnSelfImport(): void
+    {
+        $loader = new YamlConfigLoader();
+        $path = $this->writeYaml('self.yaml', "imports:\n  - { resource: self.yaml }\nkey: val\n");
+
+        $this->expectException(ConfigurationException::class);
+        $this->expectExceptionMessage('Circular import detected');
+
+        $loader->load([$path]);
+    }
+
     public function testLoadThrowsOnNonMappingYaml(): void
     {
         $loader = new YamlConfigLoader();

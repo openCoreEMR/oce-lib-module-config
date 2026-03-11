@@ -43,6 +43,12 @@ final readonly class ModuleConfigDescriptor
         public string $configFileEnvVar,
         public string $secretsFileEnvVar,
     ) {
-        $this->reverseKeyMap = array_flip($yamlKeyMap);
+        $reversed = array_flip($yamlKeyMap);
+        if (count($reversed) !== count($yamlKeyMap)) {
+            throw new \InvalidArgumentException(
+                'yamlKeyMap values must be unique — multiple YAML keys map to the same internal config key'
+            );
+        }
+        $this->reverseKeyMap = $reversed;
     }
 }

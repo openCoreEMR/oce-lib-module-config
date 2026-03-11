@@ -25,6 +25,22 @@ class ModuleConfigDescriptorTest extends TestCase
         $this->assertSame('other', $descriptor->reverseKeyMap['internal_other']);
     }
 
+    public function testThrowsOnDuplicateYamlKeyMapValues(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('yamlKeyMap values must be unique');
+
+        new ModuleConfigDescriptor(
+            yamlKeyMap: ['key_a' => 'same_internal', 'key_b' => 'same_internal'],
+            envOverrideMap: ['same_internal' => 'ENV_VAR'],
+            envConfigVar: 'ENV_CONFIG',
+            conventionalConfigPath: '/etc/config.yaml',
+            conventionalSecretsPath: '/etc/secrets.yaml',
+            configFileEnvVar: 'CONFIG_FILE',
+            secretsFileEnvVar: 'SECRETS_FILE',
+        );
+    }
+
     public function testAllPropertiesAreAccessible(): void
     {
         $descriptor = TestDescriptor::create();

@@ -51,8 +51,9 @@ class YamlConfigLoader
     public function load(array $filePaths): array
     {
         $merged = [];
+        $visited = [];
         foreach ($filePaths as $filePath) {
-            $fileData = $this->loadFile($filePath);
+            $fileData = $this->loadFile($filePath, $visited);
             $merged = array_merge($merged, $fileData);
         }
 
@@ -168,16 +169,29 @@ class YamlConfigLoader
     /**
      * Load a single YAML file, processing any imports
      *
+     * @param array<string, true> $visited Real paths already loaded (cycle detection)
      * @return array<string, mixed>
-     * @throws ConfigurationException if file is not readable or contains invalid YAML
+     * @throws ConfigurationException if file is not readable, contains invalid YAML, or creates an import cycle
      */
-    private function loadFile(string $filePath): array
+    private function loadFile(string $filePath, array &$visited = []): array
     {
         if (!is_readable($filePath)) {
             throw new ConfigurationException(
                 sprintf('Configuration file is not readable: %s', $filePath)
             );
         }
+
+        $realPath = realpath($filePath);
+        if ($realPath === false) {
+            $realPath = $filePath;
+        }
+
+        if (isset($visited[$realPath])) {
+            throw new ConfigurationException(
+                sprintf('Circular import detected: %s', $filePath)
+            );
+        }
+        $visited[$realPath] = true;
 
         $contents = file_get_contents($filePath);
         if ($contents === false) {
@@ -216,7 +230,7 @@ class YamlConfigLoader
                     continue;
                 }
                 $importPath = $baseDir . DIRECTORY_SEPARATOR . $resource;
-                $importedData = array_merge($importedData, $this->loadFile($importPath));
+                $importedData = array_merge($importedData, $this->loadFile($importPath, $visited));
             }
             unset($data['imports']);
         }

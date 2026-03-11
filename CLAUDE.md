@@ -9,7 +9,7 @@ Shared configuration accessor library for OpenCoreEMR modules (`oce-module-*`).
 | Composer name | `opencoreemr/oce-lib-module-config` |
 | PHP | >= 8.2, `declare(strict_types=1)` everywhere |
 | Style | PSR-12 |
-| PHPStan | Level 8 |
+| PHPStan | Level 10 |
 
 ## Architecture
 
