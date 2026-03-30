@@ -14,7 +14,13 @@
     "callable",
     "iterable",
     "void",
-    "object"
+    "object",
+    "attr",
+    "xlt",
+    "OpenEMR\\Common\\Crypto\\CryptoGen",
+    "OpenEMR\\Common\\Database\\QueryUtils",
+    "OpenEMR\\Events\\Globals\\GlobalsInitializedEvent",
+    "OpenEMR\\Services\\Globals\\GlobalSetting"
   ],
   "php-core-extensions": [
     "Core",
