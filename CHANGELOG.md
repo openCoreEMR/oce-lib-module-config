@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/openCoreEMR/oce-lib-module-config/compare/0.9.0...0.9.1) (2026-04-02)
+
+
+### Dependencies
+
+* **deps:** bump rhysd/actionlint from 1.7.11 to 1.7.12 ([#8](https://github.com/openCoreEMR/oce-lib-module-config/issues/8)) ([3e9734b](https://github.com/openCoreEMR/oce-lib-module-config/commit/3e9734b559f847c665135c0b9b7752be34e0ca0c))
+
 ## [0.9.0](https://github.com/openCoreEMR/oce-lib-module-config/compare/0.0.0...0.9.0) (2026-03-30)
 
 
