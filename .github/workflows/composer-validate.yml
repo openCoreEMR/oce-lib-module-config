@@ -3,27 +3,15 @@ name: Composer Validate
 on:
   push:
     branches:
-    - main
+      - main
   pull_request:
     branches:
-    - main
+      - main
 
 jobs:
   composer-validate:
-    name: Validate composer.json
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v6
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.2'
-        extensions: json, curl
-        coverage: none
-        tools: composer:v2
-
-    - name: Validate composer.json
+    uses: openCoreEMR/github-workflows-public/.github/workflows/php-composer-script.yml@0.0.2
+    with:
+      name: Validate composer.json
       run: composer validate --strict
+      install-deps: false
