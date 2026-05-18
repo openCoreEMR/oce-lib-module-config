@@ -3,31 +3,29 @@
 
 version: 2
 updates:
-# Monitor Composer dependencies
-- package-ecosystem: composer
-  directory: /
-  schedule:
-    interval: daily
-  labels:
-  - dependencies
-  - composer
-  commit-message:
-    prefix: deps
-    include: scope
-  ignore:
-  # OpenEMR pins symfony/* at ^7.3; ignore Symfony 8 until upstream moves.
-  - dependency-name: symfony/*
-    versions:
-    - '>=8.0'
-
-# Monitor GitHub Actions
-- package-ecosystem: github-actions
-  directory: /
-  schedule:
-    interval: daily
-  labels:
-  - dependencies
-  - github-actions
-  commit-message:
-    prefix: deps
-    include: scope
+  # Monitor Composer dependencies
+  - package-ecosystem: composer
+    directory: /
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+      - composer
+    commit-message:
+      prefix: fix(deps)
+      prefix-development: chore(deps-dev)
+    ignore:
+      # OpenEMR pins symfony/* at ^7.3; ignore Symfony 8 until upstream moves.
+      - dependency-name: symfony/*
+        versions:
+          - '>=8.0'
+  # Monitor GitHub Actions
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+      - github-actions
+    commit-message:
+      prefix: chore(ci)
