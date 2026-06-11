@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.9.1](https://github.com/openCoreEMR/oce-lib-module-config/compare/0.9.0...0.9.1) (2026-05-21)
+
+
+### Dependencies
+
+* **deps:** bump googleapis/release-please-action from 4 to 5 ([#11](https://github.com/openCoreEMR/oce-lib-module-config/issues/11)) ([1484e97](https://github.com/openCoreEMR/oce-lib-module-config/commit/1484e9763a128724b86ab5f67e061e19db3bbfb3))
+* **deps:** bump openCoreEMR/github-workflows-public/.github/workflows/actionlint.yml ([#19](https://github.com/openCoreEMR/oce-lib-module-config/issues/19)) ([c10fb56](https://github.com/openCoreEMR/oce-lib-module-config/commit/c10fb56a7a0cfa48a9058b622a870b71de1a8bf3))
+* **deps:** bump openCoreEMR/github-workflows-public/.github/workflows/conventional-pr-title.yml ([#18](https://github.com/openCoreEMR/oce-lib-module-config/issues/18)) ([88ee276](https://github.com/openCoreEMR/oce-lib-module-config/commit/88ee276e9ddf1ea82adc671ae7779bf36855886b))
+* **deps:** bump openCoreEMR/github-workflows-public/.github/workflows/php-composer-script.yml ([#20](https://github.com/openCoreEMR/oce-lib-module-config/issues/20)) ([4b9f94f](https://github.com/openCoreEMR/oce-lib-module-config/commit/4b9f94f685c1baa6c2379e26b4df5e0a01e8a27d))
+* **deps:** bump openCoreEMR/github-workflows-public/.github/workflows/php-tests.yml ([#22](https://github.com/openCoreEMR/oce-lib-module-config/issues/22)) ([afc009b](https://github.com/openCoreEMR/oce-lib-module-config/commit/afc009b9505098fe0f1a1a8035e40ed19b077a73))
+* **deps:** bump opencoreemr/github-workflows-public/.github/workflows/release-please-reusable.yml ([#16](https://github.com/openCoreEMR/oce-lib-module-config/issues/16)) ([d636bbc](https://github.com/openCoreEMR/oce-lib-module-config/commit/d636bbc3ff937da05c65b872b11a30e25508b414))
+* **deps:** bump opencoreemr/github-workflows-public/.github/workflows/release-please-reusable.yml ([#21](https://github.com/openCoreEMR/oce-lib-module-config/issues/21)) ([41ab945](https://github.com/openCoreEMR/oce-lib-module-config/commit/41ab945754200895f551d2164456ad6811ccc1d0))
+* **deps:** bump rhysd/actionlint from 1.7.11 to 1.7.12 ([#8](https://github.com/openCoreEMR/oce-lib-module-config/issues/8)) ([3e9734b](https://github.com/openCoreEMR/oce-lib-module-config/commit/3e9734b559f847c665135c0b9b7752be34e0ca0c))
+
 ## [0.9.0](https://github.com/openCoreEMR/oce-lib-module-config/compare/0.0.0...0.9.0) (2026-03-30)
 
 
