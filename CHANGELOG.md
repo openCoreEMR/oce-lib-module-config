@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.9.2](https://github.com/openCoreEMR/oce-lib-module-config/compare/0.9.1...0.9.2) (2026-10-21)
+
+
+### Bug Fixes
+
+* add .gitattributes to export-ignore dev files ([8080fa6](https://github.com/openCoreEMR/oce-lib-module-config/commit/8080fa651d608e4b6cfc0e34931ec6f99ef9f6b8))
+
+
+### Documentation
+
+* move agent instructions to AGENTS.md ([1996dc1](https://github.com/openCoreEMR/oce-lib-module-config/commit/1996dc1c9513752a71e705ea99c05982bcc1ec12))
+
 ## [0.9.1](https://github.com/openCoreEMR/oce-lib-module-config/compare/0.9.0...0.9.1) (2026-05-21)
 
 
